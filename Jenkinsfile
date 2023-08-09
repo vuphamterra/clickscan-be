@@ -1,18 +1,22 @@
 pipeline {
   agent any
   stages {
+    stage('instal') {
+      steps {
+        echo 'Install packages'
+        sh 'yarn'
+      }
+    }
+
     stage('build') {
       steps {
-        echo 'Building'
-        sh '''yarn
-yarn build'''
+        sh 'yarn build'
       }
     }
 
     stage('deploy') {
       steps {
-        echo 'deploying'
-        sh 'pm2 start ./src/app.js'
+        sh 'pm2 start app.js'
       }
     }
 
