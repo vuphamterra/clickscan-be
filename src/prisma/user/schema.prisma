@@ -1,0 +1,79 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_USER")
+}
+
+model roles {
+  id         Int         @id @default(autoincrement())
+  name       String
+  code       String      @unique
+  users user_roles[]
+  deleted_at DateTime?
+  created_at DateTime    @default(now())
+  updated_at DateTime    @default(now())
+  created_by Int?
+  updated_by Int?
+}
+
+model users {
+  id            Int             @id @default(autoincrement())
+  email         String          @unique
+  username      String          @unique
+  password      String
+  description   String
+  roles    user_roles[]
+  databases user_databases[]
+  deleted_at    DateTime?
+  created_at    DateTime        @default(now())
+  updated_at    DateTime        @default(now())
+  created_by    Int?
+  updated_by    Int?
+}
+
+model user_roles {
+  id         Int       @id @default(autoincrement())
+  user       users      @relation(fields: [user_id], references: [id])
+  user_id    Int // relation scalar field (used in the `@relation` attribute above)
+  role       roles      @relation(fields: [role_id], references: [id])
+  role_id    Int // relation scalar field (used in the `@relation` attribute above)
+  deleted_at DateTime?
+  created_at DateTime  @default(now())
+  updated_at DateTime  @default(now())
+  created_by Int?
+  updated_by Int?
+}
+
+model databases {
+  id            Int             @id @default(autoincrement())
+  connection    String          @unique
+  host          String
+  port          String
+  username      String
+  password      String
+  schema         String
+  users user_databases[]
+  deleted_at    DateTime?
+  created_at    DateTime        @default(now())
+  updated_at    DateTime        @default(now())
+  created_by    Int?
+  updated_by    Int?
+
+  @@unique([host, username, schema])
+}
+
+model user_databases {
+  id          Int       @id @default(autoincrement())
+  user        users      @relation(fields: [user_id], references: [id])
+  user_id     Int // relation scalar field (used in the `@relation` attribute above)
+  database    databases  @relation(fields: [database_id], references: [id])
+  database_id Int // relation scalar field (used in the `@relation` attribute above)
+  deleted_at  DateTime?
+  created_at  DateTime  @default(now())
+  updated_at  DateTime  @default(now())
+  created_by  Int?
+  updated_by  Int?
+}

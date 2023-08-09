@@ -1,0 +1,985 @@
+# openapi: 3.0.0
+# paths:
+#   /api:
+#     get:
+#       operationId: AppController_getHello
+#       parameters: []
+#       responses:
+#         '200':
+#           description: ''
+#   /api/v1/user/all:
+#     get:
+#       operationId: UserController_getUsers
+#       parameters: []
+#       responses:
+#         '302':
+#           description: Get all users
+#           content:
+#             application/json:
+#               schema:
+#                 type: array
+#                 items:
+#                   $ref: '#/components/schemas/UserDto'
+#       tags:
+#         - user
+#   # /api/v1/user:
+#   #   post:
+#   #     operationId: UserController_createUser
+#   #     parameters: []
+#   #     requestBody:
+#   #       required: true
+#   #       content:
+#   #         application/json:
+#   #           schema:
+#   #             $ref: '#/components/schemas/CreateUserDto'
+#   #     responses:
+#   #       '200':
+#   #         description: Create successful
+#   #         content:
+#   #           application/json:
+#   #             schema:
+#   #               type: array
+#   #               items:
+#   #                 $ref: '#/components/schemas/UserDto'
+#   #     tags:
+#   #       - user
+#   # /api/v1/user/{id}:
+#   #   get:
+#   #     operationId: UserController_getUser
+#   #     parameters:
+#   #       - name: id
+#   #         required: true
+#   #         in: path
+#   #         schema:
+#   #           type: string
+#   #     responses:
+#   #       '200':
+#   #         description: Get user successful
+#   #         content:
+#   #           application/json:
+#   #             schema:
+#   #               $ref: '#/components/schemas/UserDto'
+#   #     tags:
+#   #       - user
+#   #   put:
+#   #     operationId: UserController_updateUser
+#   #     parameters:
+#   #       - name: id
+#   #         required: true
+#   #         in: path
+#   #         schema:
+#   #           type: string
+#   #     requestBody:
+#   #       required: true
+#   #       content:
+#   #         application/json:
+#   #           schema:
+#   #             $ref: '#/components/schemas/CreateUserDto'
+#   #     responses:
+#   #       '200':
+#   #         description: Updated successful
+#   #         content:
+#   #           application/json:
+#   #             schema:
+#   #               type: array
+#   #               items:
+#   #                 $ref: '#/components/schemas/UserDto'
+#   #     tags:
+#   #       - user
+#   # /api/v1/user/{id}/change-password:
+#   #   patch:
+#   #     operationId: UserController_changeUserPassword
+#   #     parameters:
+#   #       - name: id
+#   #         required: true
+#   #         in: path
+#   #         schema:
+#   #           type: string
+#   #     requestBody:
+#   #       required: true
+#   #       content:
+#   #         application/json:
+#   #           schema:
+#   #             $ref: '#/components/schemas/UserPasswordDto'
+#   #     responses:
+#   #       '200':
+#   #         description: Change password successful
+#   #         content:
+#   #           application/json:
+#   #             schema:
+#   #               type: array
+#   #               items:
+#   #                 $ref: '#/components/schemas/UserDto'
+#   #     tags:
+#   #       - user
+#   # /api/v1/user/{id}/reset-password:
+#     patch:
+#       operationId: UserController_resetPassword
+#       parameters:
+#         - name: id
+#           required: true
+#           in: path
+#           schema:
+#             type: string
+#       responses:
+#         '200':
+#           description: Reset password successful
+#           content:
+#             application/json:
+#               schema:
+#                 type: array
+#                 items:
+#                   $ref: '#/components/schemas/UserDto'
+#       tags:
+#         - user
+#   /api/v1/auth/login:
+#     post:
+#       operationId: AuthController_login
+#       parameters: []
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/schemas/LoginDto'
+#       responses:
+#         '302':
+#           description: login
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/LoginSucessDto'
+#       tags:
+#         - auth
+#   /api/v1/auth/me:
+#     get:
+#       operationId: AuthController_getUserInformation
+#       parameters: []
+#       responses:
+#         '200':
+#           description: Get loged-in user information successful
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/UserInfoDto'
+#       tags:
+#         - auth
+#   /api/v1/auth/logout:
+#     put:
+#       operationId: AuthController_logout
+#       parameters: []
+#       responses:
+#         '200':
+#           description: Logout successfully
+#       tags:
+#         - auth
+#   /api/v1/role/{id}:
+#     get:
+#       operationId: RoleController_getRoleById
+#       parameters:
+#         - name: id
+#           required: true
+#           in: path
+#           schema:
+#             type: string
+#       responses:
+#         '200':
+#           description: Get role successful
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/RoleDto'
+#       tags:
+#         - role
+#   /api/v1/database/all:
+#     get:
+#       operationId: DatabaseController_getDatabaseList
+#       parameters: []
+#       responses:
+#         '200':
+#           description: Get all database
+#           content:
+#             application/json:
+#               schema:
+#                 type: array
+#                 items:
+#                   $ref: '#/components/schemas/DatabaseDto'
+#       tags:
+#         - database
+#   /api/v1/database:
+#     post:
+#       operationId: DatabaseController_createDatabase
+#       parameters: []
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/schemas/CreateDatabaseDto'
+#       responses:
+#         '200':
+#           description: Create database successful
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/DatabaseDto'
+#       tags:
+#         - database
+#   /api/v1/database/{id}:
+#     get:
+#       operationId: DatabaseController_getDatabaseById
+#       parameters:
+#         - name: id
+#           required: true
+#           in: path
+#           schema:
+#             type: string
+#       responses:
+#         '200':
+#           description: Get database successful
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/DatabaseDto'
+#       tags:
+#         - database
+#     put:
+#       operationId: DatabaseController_updateDatbase
+#       parameters:
+#         - name: id
+#           required: true
+#           in: path
+#           schema:
+#             type: number
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/schemas/CreateDatabaseDto'
+#       responses:
+#         '200':
+#           description: Updated database successful
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/DatabaseDto'
+#       tags:
+#         - database
+#   /api/v1/drawer:
+#     post:
+#       operationId: DrawerController_createDrawer
+#       parameters: []
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/schemas/CreateDrawerDto'
+#       responses:
+#         '201':
+#           description: Create drawer successful
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/DrawerDto'
+#       tags:
+#         - drawer
+#   /api/v1/drawer/duplicate:
+#     post:
+#       operationId: DrawerController_duplicateDrawer
+#       parameters: []
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/schemas/DuplicateDrawerDto'
+#       responses:
+#         '201':
+#           description: Duplicate drawer successful
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/DrawerDto'
+#       tags:
+#         - drawer
+#   /api/v1/drawer/convert:
+#     post:
+#       operationId: DrawerController_converPdfToImg
+#       parameters: []
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/schemas/ConvertDto'
+#       responses:
+#         '200':
+#           description: Convert successful
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/DrawerDto'
+#       tags:
+#         - drawer
+#   /api/v1/drawer/bulk-import:
+#     post:
+#       operationId: DrawerController_import
+#       parameters: []
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/schemas/ImportDto'
+#       responses:
+#         '200':
+#           description: Import successful
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/DrawerDto'
+#       tags:
+#         - drawer
+#   /api/v1/drawer/all:
+#     get:
+#       operationId: DrawerController_getDrawers
+#       parameters: []
+#       responses:
+#         '200':
+#           description: Get drawers successful
+#           content:
+#             application/json:
+#               schema:
+#                 type: array
+#                 items:
+#                   $ref: '#/components/schemas/DrawerDto'
+#       tags:
+#         - drawer
+#   /api/v1/drawer/{id}:
+#     get:
+#       operationId: DrawerController_getDrawerById
+#       parameters:
+#         - name: id
+#           required: true
+#           in: path
+#           schema:
+#             type: string
+#       responses:
+#         '200':
+#           description: Get drawer successful
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/DrawerDto'
+#       tags:
+#         - drawer
+#     put:
+#       operationId: DrawerController_updateDrawer
+#       parameters:
+#         - name: id
+#           required: true
+#           in: path
+#           schema:
+#             type: number
+#       responses:
+#         '200':
+#           description: Update drawer successful
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/DrawerDto'
+#       tags:
+#         - drawer
+#     delete:
+#       operationId: DrawerController_deleteDrawer
+#       parameters:
+#         - name: id
+#           required: true
+#           in: path
+#           schema:
+#             type: number
+#       responses:
+#         '200':
+#           description: Delete drawer successful
+#       tags:
+#         - drawer
+#   /api/v1/drawer/{id}/purge:
+#     put:
+#       operationId: DrawerController_purgeDrawer
+#       parameters:
+#         - name: id
+#           required: true
+#           in: path
+#           schema:
+#             type: number
+#       responses:
+#         '200':
+#           description: Purge drawer successful
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/DrawerDto'
+#       tags:
+#         - drawer
+#   /api/v1/drawer/{id}/fulltext-wizard:
+#     put:
+#       operationId: DrawerController_wizardDrawer
+#       parameters:
+#         - name: id
+#           required: true
+#           in: path
+#           schema:
+#             type: number
+#       responses:
+#         '200':
+#           description: Fulltext wizard successful
+#       tags:
+#         - drawer
+#   /api/v1/field/{id}:
+#     put:
+#       operationId: FieldController_updateField
+#       parameters:
+#         - name: id
+#           required: true
+#           in: path
+#           schema:
+#             type: string
+#       responses:
+#         '200':
+#           description: Update Field successful
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/FieldDto'
+#       tags:
+#         - field
+#     delete:
+#       operationId: FieldController_deleteField
+#       parameters:
+#         - name: id
+#           required: true
+#           in: path
+#           schema:
+#             type: string
+#       responses:
+#         '200':
+#           description: Delete field successful
+#       tags:
+#         - field
+#   /api/v1/folder/move:
+#     post:
+#       operationId: FolderController_move
+#       parameters: []
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/schemas/MoveFolderDto'
+#       responses:
+#         '200':
+#           description: Move folder successful
+#       tags:
+#         - folder
+#   /api/v1/folder/{id}:
+#     get:
+#       operationId: FolderController_export
+#       parameters:
+#         - name: id
+#           required: true
+#           in: path
+#           schema:
+#             type: number
+#       responses:
+#         '200':
+#           description: Export folder successful
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/FolderDto'
+#       tags:
+#         - folder
+#     put:
+#       operationId: FolderController_updateField
+#       parameters:
+#         - name: id
+#           required: true
+#           in: path
+#           schema:
+#             type: number
+#       responses:
+#         '200':
+#           description: Update folder successful
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/FolderDto'
+#       tags:
+#         - folder
+#     delete:
+#       operationId: FolderController_deleteField
+#       parameters:
+#         - name: id
+#           required: true
+#           in: path
+#           schema:
+#             type: number
+#       responses:
+#         '200':
+#           description: Delete folder successful
+#       tags:
+#         - folder
+#   /api/v1/file:
+#     post:
+#       operationId: FileController_create
+#       parameters: []
+#       requestBody:
+#         required: true
+#         content:
+#           application/json:
+#             schema:
+#               $ref: '#/components/schemas/CreateFileDto'
+#       responses:
+#         '201':
+#           description: Create file successful
+#       tags:
+#         - file
+#   /api/v1/file/{id}:
+#     delete:
+#       operationId: FileController_delete
+#       parameters:
+#         - name: id
+#           required: true
+#           in: path
+#           schema:
+#             type: number
+#       responses:
+#         '200':
+#           description: Delete file successful
+#       tags:
+#         - file
+#   /api/v1/dashboard:
+#     get:
+#       operationId: DashboardController_dashboard
+#       parameters: []
+#       responses:
+#         '200':
+#           description: Get dashboard successful
+#           content:
+#             application/json:
+#               schema:
+#                 $ref: '#/components/schemas/DashboardDto'
+#       tags:
+#         - dashboard
+# info:
+#   title: CLICKSCAN SERVER
+#   description: The API Document for ClickScan Service
+#   version: v1.0.0
+#   contact: {}
+# tags: []
+# servers: []
+# components:
+#   schemas:
+#     UserDto:
+#       type: object
+#       properties:
+#         id:
+#           type: number
+#         firstname:
+#           type: string
+#         lastname:
+#           type: string
+#         email:
+#           type: string
+#         username:
+#           type: string
+#         password:
+#           type: string
+#         deleted_at:
+#           type: object
+#         created_at:
+#           format: date-time
+#           type: string
+#         updated_at:
+#           format: date-time
+#           type: string
+#         created_by:
+#           type: string
+#         updated_by:
+#           type: string
+#       required:
+#         - id
+#         - firstname
+#         - lastname
+#         - email
+#         - username
+#         - password
+#         - deleted_at
+#         - created_at
+#         - updated_at
+#         - created_by
+#         - updated_by
+#     CreateUserDto:
+#       type: object
+#       properties:
+#         firstname:
+#           type: string
+#         lastname:
+#           type: string
+#         email:
+#           type: string
+#         username:
+#           type: string
+#         password:
+#           type: string
+#         created_by:
+#           type: string
+#         updated_by:
+#           type: string
+#         role_id:
+#           type: number
+#       required:
+#         - firstname
+#         - lastname
+#         - email
+#         - username
+#         - password
+#         - created_by
+#         - updated_by
+#         - role_id
+#     UserPasswordDto:
+#       type: object
+#       properties:
+#         password:
+#           type: string
+#       required:
+#         - password
+#     LoginDto:
+#       type: object
+#       properties:
+#         email:
+#           type: string
+#         password:
+#           type: string
+#       required:
+#         - email
+#         - password
+#     LoginSucessDto:
+#       type: object
+#       properties:
+#         access_token:
+#           type: string
+#       required:
+#         - access_token
+#     UserInfoDto:
+#       type: object
+#       properties:
+#         id:
+#           type: number
+#         firstname:
+#           type: string
+#         lastname:
+#           type: string
+#         email:
+#           type: string
+#         username:
+#           type: string
+#         password:
+#           type: string
+#         deleted_at:
+#           type: object
+#         created_at:
+#           format: date-time
+#           type: string
+#         updated_at:
+#           format: date-time
+#           type: string
+#         created_by:
+#           type: string
+#         updated_by:
+#           type: string
+#         role_id:
+#           type: number
+#         database:
+#           type: array
+#           items:
+#             type: string
+#       required:
+#         - id
+#         - firstname
+#         - lastname
+#         - email
+#         - username
+#         - password
+#         - deleted_at
+#         - created_at
+#         - updated_at
+#         - created_by
+#         - updated_by
+#         - role_id
+#         - database
+#     RoleDto:
+#       type: object
+#       properties:
+#         id:
+#           type: number
+#         name:
+#           type: string
+#         code:
+#           type: string
+#         deleted_at:
+#           type: object
+#         created_at:
+#           format: date-time
+#           type: string
+#         updated_at:
+#           format: date-time
+#           type: string
+#         created_by:
+#           type: object
+#         updated_by:
+#           type: object
+#       required:
+#         - id
+#         - name
+#         - code
+#         - deleted_at
+#         - created_at
+#         - updated_at
+#         - created_by
+#         - updated_by
+#     DatabaseDto:
+#       type: object
+#       properties:
+#         id:
+#           type: number
+#         name:
+#           type: string
+#         host:
+#           type: string
+#         port:
+#           type: string
+#         username:
+#           type: string
+#         password:
+#           type: string
+#         database:
+#           type: string
+#         deleted_at:
+#           format: date-time
+#           type: string
+#         created_at:
+#           format: date-time
+#           type: string
+#         updated_at:
+#           format: date-time
+#           type: string
+#         created_by:
+#           type: string
+#         updated_by:
+#           type: string
+#       required:
+#         - id
+#         - name
+#         - host
+#         - port
+#         - username
+#         - password
+#         - database
+#         - deleted_at
+#         - created_at
+#         - updated_at
+#         - created_by
+#         - updated_by
+#     CreateDatabaseDto:
+#       type: object
+#       properties:
+#         name:
+#           type: string
+#         host:
+#           type: string
+#         port:
+#           type: string
+#         username:
+#           type: string
+#         password:
+#           type: string
+#         database:
+#           type: string
+#       required:
+#         - name
+#         - host
+#         - port
+#         - username
+#         - password
+#         - database
+#     CreateDrawerDto:
+#       type: object
+#       properties:
+#         name:
+#           type: string
+#         description:
+#           type: string
+#         is_fulltext:
+#           type: boolean
+#         img_path:
+#           type: string
+#         secure_path:
+#           type: boolean
+#         fields:
+#           type: array
+#           items:
+#             type: string
+#       required:
+#         - name
+#         - description
+#         - is_fulltext
+#         - img_path
+#         - secure_path
+#         - fields
+#     DrawerDto:
+#       type: object
+#       properties:
+#         id:
+#           type: number
+#         name:
+#           type: string
+#         description:
+#           type: string
+#         image_path:
+#           type: string
+#         fulltext:
+#           type: boolean
+#         deleted_at:
+#           type: object
+#         created_at:
+#           format: date-time
+#           type: string
+#         updated_at:
+#           format: date-time
+#           type: string
+#         created_by:
+#           type: object
+#         updated_by:
+#           type: object
+#       required:
+#         - id
+#         - name
+#         - description
+#         - image_path
+#         - fulltext
+#         - deleted_at
+#         - created_at
+#         - updated_at
+#         - created_by
+#         - updated_by
+#     DuplicateDrawerDto:
+#       type: object
+#       properties:
+#         id:
+#           type: number
+#         name:
+#           type: string
+#         description:
+#           type: string
+#       required:
+#         - id
+#         - name
+#         - description
+#     ConvertDto:
+#       type: object
+#       properties:
+#         id:
+#           type: number
+#         isKeep:
+#           type: boolean
+#       required:
+#         - id
+#         - isKeep
+#     ImportDto:
+#       type: object
+#       properties:
+#         id:
+#           type: number
+#         path:
+#           type: string
+#         isKeep:
+#           type: boolean
+#         fieldMapping:
+#           type: array
+#           items:
+#             type: string
+#       required:
+#         - id
+#         - path
+#         - isKeep
+#         - fieldMapping
+#     FieldDto:
+#       type: object
+#       properties:
+#         name:
+#           type: string
+#         type:
+#           type: string
+#         width:
+#           type: string
+#         format:
+#           type: string
+#         redflag:
+#           type: object
+#       required:
+#         - name
+#         - type
+#         - width
+#         - format
+#         - redflag
+#     MoveFolderDto:
+#       type: object
+#       properties:
+#         id:
+#           type: number
+#         drawerId:
+#           type: number
+#       required:
+#         - id
+#         - drawerId
+#     FolderDto:
+#       type: object
+#       properties:
+#         id:
+#           type: number
+#         name:
+#           type: string
+#       required:
+#         - id
+#         - name
+#     CreateFileDto:
+#       type: object
+#       properties:
+#         method:
+#           type: string
+#         files:
+#           type: array
+#           items:
+#             type: string
+#       required:
+#         - method
+#         - files
+#     DashboardDto:
+#       type: object
+#       properties:
+#         drawers:
+#           type: number
+#         folders:
+#           type: number
+#         users:
+#           type: number
+#         capacities:
+#           type: number
+#       required:
+#         - drawers
+#         - folders
+#         - users
+#         - capacities
