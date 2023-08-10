@@ -22,7 +22,7 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        sh 'pm2 start app.js'
+        sh 'pm2 start ./dist/main.js'
       }
     }
 
