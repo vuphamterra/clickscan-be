@@ -3,27 +3,28 @@ pipeline {
   stages {
     stage('Install') {
       steps {
-        sh 'yarn install'
         echo 'Installing'
+        sh 'yarn install'
       }
     }
 
     stage('Migrate') {
       steps {
-        sh 'yarn user:migrate'
         echo 'Migrating'
+        sh 'yarn user:migrate'
       }
     }
 
     stage('Build') {
       steps {
-        sh 'yarn build'
         echo 'building'
+        sh 'yarn build'
       }
     }
 
     stage('Deploy') {
       steps {
+        echo 'deploying'
         sh 'pm2 start ./dist/main.js'
       }
     }
