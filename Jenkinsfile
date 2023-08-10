@@ -18,6 +18,7 @@ pipeline {
     stage('Deploy') {
       steps {
         sh 'pm2 start ./dist/main.js'
+        echo 'deploying'
       }
     }
 
