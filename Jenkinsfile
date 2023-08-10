@@ -8,13 +8,6 @@ pipeline {
       }
     }
 
-    stage('Migrate') {
-      steps {
-        echo 'Migrating'
-        sh 'yarn user:migrate'
-      }
-    }
-
     stage('Build') {
       steps {
         sh 'yarn build'
