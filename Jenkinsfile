@@ -9,7 +9,7 @@ pipeline {
 
     stage('Migrate') {
       steps {
-        sh 'yarn migrate'
+        sh 'yarn user:migrate'
       }
     }
 
