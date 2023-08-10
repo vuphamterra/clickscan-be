@@ -10,6 +10,7 @@ pipeline {
 
     stage('Migrate') {
       steps {
+        echo 'Migrating'
         sh 'yarn user:migrate'
       }
     }
