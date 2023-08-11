@@ -8,6 +8,13 @@ pipeline {
       }
     }
 
+    stage('Migrate') {
+      steps {
+        echo 'Migrating'
+        sh 'yarn user:migrate'
+      }
+    }
+
     stage('Build') {
       steps {
         echo 'building'
@@ -18,8 +25,7 @@ pipeline {
     stage('Deploy') {
       steps {
         echo 'deploying'
-        sh 'export BUILD_ID=dontKillMePlease'
-        sh 'pm2 restart ./dist/main.js'
+        sh 'pm2 start ./dist/main.js'
       }
     }
 
