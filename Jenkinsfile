@@ -24,7 +24,7 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        echo 'deploy'
+        echo 'deploying'
         sh 'export BUILD_ID=dontKillMePlease'
         sh 'pm2 restart main'
       }
