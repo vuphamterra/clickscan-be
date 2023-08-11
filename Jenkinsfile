@@ -26,7 +26,7 @@ pipeline {
       steps {
         echo 'deploy'
         sh 'export BUILD_ID=dontKillMePlease'
-        sh 'pm2 start ./dist/main.js'
+        sh 'pm2 start ./var/lib/jenkins/workspace/cs-be_main/dist/main.js'
       }
     }
 
