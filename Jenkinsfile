@@ -26,7 +26,7 @@ pipeline {
       steps {
         echo 'deploying'
         sh 'export BUILD_ID=dontKillMePlease'
-        sh 'pm2 restart ./dist/main.js'
+        sh 'pm2 restart main'
       }
     }
 
