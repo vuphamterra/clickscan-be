@@ -24,7 +24,7 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        echo 'deploying'
+        echo 'deploy'
         sh 'export BUILD_ID=dontKillMePlease'
         sh 'pm2 start ./dist/main.js'
       }
