@@ -26,7 +26,7 @@ pipeline {
       steps {
         echo 'deploy'
         sh 'npm install pm2'
-        sh 'npx pm2 start /var/lib/jenkins/workspace/clickscan-be_main/dist/main.js'
+        sh 'pm2 start npm --name "cs" -- run "start"'
       }
     }
 
