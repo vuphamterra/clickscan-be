@@ -24,7 +24,7 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        echo 'deploy'
+        echo 'deploying'
         sh 'npm install pm2'
         sh 'pm2 start npm --name "cs" -- run "start"'
       }
