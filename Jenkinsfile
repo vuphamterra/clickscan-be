@@ -26,6 +26,7 @@ pipeline {
       steps {
         echo 'deploy'
         sh 'export BUILD_ID=dontKillMePlease'
+        sh 'npm install pm2'
         sh 'pm2 start /var/lib/jenkins/workspace/clickscan-be_main/dist/main.js'
       }
     }
