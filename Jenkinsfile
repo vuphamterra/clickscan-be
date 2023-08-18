@@ -1,31 +1,26 @@
 pipeline {
   agent any
   stages {
-    stage('Install') {
+    stage('Pull') {
       steps {
         echo 'Installing'
-        sh 'yarn install'
-      }
-    }
-
-    stage('Migrate') {
-      steps {
-        echo 'Migrating'
-        sh 'yarn user:migrate'
+        sh 'cd ../jenkins-docker'
+        sh 'sudo git pull'
       }
     }
 
     stage('Build') {
       steps {
-        echo 'building'
-        sh 'yarn build'
+        echo 'Migrating'
+        sh 'cd ../jenkins-docker'
+        sh 'sudo docker build . -t test'
       }
     }
 
-    stage('Deploy') {
+    stage('Restart') {
       steps {
-        echo 'Deploying'
-        sh 'forever stopall'
+        echo 'building'
+        sh 'sudo docker restart 243b08733c2f'
       }
     }
 
