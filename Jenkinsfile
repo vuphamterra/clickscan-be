@@ -24,7 +24,7 @@ pipeline {
 
     stage('Deploy') {
       steps {
-        echo 'deploying'
+        echo 'Deploying'
         sh 'pwd'
         sh 'forever restart /var/lib/jenkins/workspace/clickscan-be_main/dist/main.js'
       }
