@@ -25,6 +25,7 @@ pipeline {
     stage('Deploy') {
       steps {
         echo 'deploying'
+        sh 'pwd'
         sh 'forever start ./dist/main.js'
       }
     }
