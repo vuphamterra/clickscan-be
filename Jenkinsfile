@@ -25,8 +25,7 @@ pipeline {
     stage('Deploy') {
       steps {
         echo 'deploying'
-        sh 'yarn start'
-        sh 'exit'
+        sh 'forever start ./dist/main.js'
       }
     }
 
