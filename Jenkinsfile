@@ -26,6 +26,7 @@ pipeline {
       steps {
         echo 'deploying'
         sh 'yarn start'
+        sh 'exit'
       }
     }
 
