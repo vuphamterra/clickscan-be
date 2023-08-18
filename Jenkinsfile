@@ -25,8 +25,7 @@ pipeline {
     stage('Deploy') {
       steps {
         echo 'Deploying'
-        sh 'sudo forever stopall'
-        sh 'sudo forever start /var/lib/jenkins/workspace/clickscan-be_main/dist/main.js'
+        sh 'forever stopall'
       }
     }
 
