@@ -1,32 +1,26 @@
 pipeline {
   agent any
   stages {
-    stage('Install') {
+    stage('Pull') {
       steps {
         echo 'Installing'
-        sh 'yarn'
-      }
-    }
-
-    stage('Migrate') {
-      steps {
-        echo 'Migrating'
-        sh 'yarn user:migrate'
+        sh 'cd ../jenkins-docker'
+        sh 'sudo git pull'
       }
     }
 
     stage('Build') {
       steps {
-        echo 'building'
-        sh 'yarn build'
+        echo 'Migrating'
+        sh 'cd ../jenkins-docker'
+        sh 'sudo docker build . -t test'
       }
     }
 
-    stage('Deploy') {
+    stage('Restart') {
       steps {
-        echo 'deploy'
-        sh 'export BUILD_ID=dontKillMePlease'
-        sh 'pm2 start /var/lib/jenkins/workspace/cs-be_main/dist/main.js'
+        echo 'building'
+        sh 'sudo docker restart 243b08733c2f'
       }
     }
 
