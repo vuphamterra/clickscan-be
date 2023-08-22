@@ -10,4 +10,4 @@ RUN yarn install
 RUN yarn build
 
 EXPOSE 3001
-CMD [ "node", "./dist/main.js" ]
+CMD [ "yarn", "start" ]
